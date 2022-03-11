@@ -7,22 +7,33 @@ isPartTime=2
 empRatePerHr=20
 totalSalary=0
 workingDays=20
+totalWorkingHrs=0
+empHrs=0
+day=1
 
-for (( day=1; day<=$workingDays; day++ ))
+while [[ $day -le 20 && $totalWorkinHrs -le 100 ]]
 do
 	empCheck=$((RANDOM%3))
-		case $empCheck in
-			$isFullTime)
-				empHrs=8
-				;;
-			$isPartTime)
-				empHrs=4
-				;;
-			*)
-				empHrs=0
-				;;
+	case $empCheck in
+		$isFullTime)
+			empHrs=8
+			;;
+		$isPartTime)
+			empHrs=4
+			;;
+		*)
+			empHrs=0
+			;;
 
-		esac
-		salary=$(($empHrs * $empRatePerHr))
-		totalSalary=$(($totalSalary + $salary))
+	esac
+	totalWorkingHrs=$(($totalWorkingHrs + $empHrs))
+	if [ $totalWorkingHrs -gt 100 ]
+	then
+		totalWorkingHrs=$(($totalWorkingHrs - $empHrs))
+		break
+	fi
+
+	salary=$(($empHrs * $empRatePerHr))
+	totalSalary=$(($totalSalary + $salary))
+	((day++))
 done
