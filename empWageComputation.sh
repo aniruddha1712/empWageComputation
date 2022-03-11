@@ -2,26 +2,22 @@
 
 echo "Welcome to Employee Wage Computation Program"
 
-isPresent=1
 isFullTime=1
+isPartTime=2
 empRatePerHr=20
-randomCheck=$((RANDOM%2))
-empCheck=$((RANDOM%2))
+empCheck=$((RANDOM%3))
 
-if [ $isPresent -eq $randomCheck ]
-then
-	echo "Employee is Present"
-	if [ $isFullTime -eq $empCheck ]
-	then
-		echo "Employee is Fulltime"
+case $empCheck in
+	$isFullTime)
 		empHrs=8
-	else
-		echo "Employee is Parttime"
+		;;
+	$isPartTime)
 		empHrs=4
-	fi
-else
-	echo "Employee is Absent"
-	empHrs=0
-fi
+		;;
+	*)
+		empHrs=0
+		;;
+
+esac
 
 salary=$(($empHrs * $empRatePerHr))
