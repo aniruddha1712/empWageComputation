@@ -2,30 +2,29 @@
 
 echo "Welcome to Employee Wage Computation Program"
 
-isFullTime=1
-isPartTime=2
+function calculateWorkingHrs() {
+	case $1 in
+                0)
+			workingHrs=0
+			;;
+		1)
+			workingHrs=8
+			;;
+		2)
+			workingHrs=4
+			;;
+	esac
+	echo $workingHrs
+}
+
 empRatePerHr=20
 totalSalary=0
-workingDays=20
 totalWorkingHrs=0
-empHrs=0
 day=1
 
-while [[ $day -le 20 && $totalWorkinHrs -le 100 ]]
+while [[ $day -le 20 && $totalWorkingHrs -lt 100 ]]
 do
-	empCheck=$((RANDOM%3))
-	case $empCheck in
-		$isFullTime)
-			empHrs=8
-			;;
-		$isPartTime)
-			empHrs=4
-			;;
-		*)
-			empHrs=0
-			;;
-
-	esac
+	empHrs=$(calculateWorkingHrs $((RANDOM%3)))
 	totalWorkingHrs=$(($totalWorkingHrs + $empHrs))
 	if [ $totalWorkingHrs -gt 100 ]
 	then
