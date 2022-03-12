@@ -32,13 +32,14 @@ function calcDailyWage() {
 	echo $wage
 }
 
-while [[ $totalWorkingDays -le $maxWorkingDays && $totalWorkingHrs -lt $maxWorkingHrs ]]
+while [[ $totalWorkingDays -lt $maxWorkingDays && $totalWorkingHrs -lt $maxWorkingHrs ]]
 do
 	((totalWorkingDays++))
 	workHours="$(calculateWorkingHrs $((RANDOM%3)) )"
 	totalWorkingHrs=$(($totalWorkingHrs + $workHours))
-	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
+	empDailyWage["$totalWorkingDays"]="$( calcDailyWage $workHours )"
 done
 
 totalSalary="$( calcDailyWage $totalWorkingHrs )"
 echo "daily wage" ${empDailyWage[@]}
+echo "all Keys" ${!empDailyWage[@]}
